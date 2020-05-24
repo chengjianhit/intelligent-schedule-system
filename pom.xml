@@ -16,8 +16,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <java.version>1.8</java.version>
     <jackson.version>2.9.8</jackson.version>
   </properties>
@@ -125,6 +125,25 @@
         <version>0.9.11</version>
       </dependency>
 
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.9</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>4.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.1.6.RELEASE</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -132,6 +151,7 @@
   <modules>
     <module>transport-core</module>
     <module>schedule-common</module>
+    <module>schedule-config</module>
   </modules>
 
 </project>

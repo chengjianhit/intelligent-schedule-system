@@ -1,7 +1,7 @@
 package com.cheng.transport.serialization.json;
 
 import com.cheng.logger.BusinessLoggerFactory;
-import com.cheng.transport.serialization.ISerializable;
+import com.cheng.transport.serialization.MessageCodec;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import java.io.IOException;
 
 
-public class JSONSerializable  implements ISerializable {
+public class JSONSerializable  implements MessageCodec {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
