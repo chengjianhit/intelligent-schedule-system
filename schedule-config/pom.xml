@@ -8,6 +8,12 @@
   <artifactId>schedule-config</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <parent>
+    <groupId>com.cheng</groupId>
+    <artifactId>intelligent-schedule</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
   <name>schedule-config</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
@@ -24,6 +30,12 @@
       <artifactId>schedule-common</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>
