@@ -3,6 +3,7 @@ package com.cheng.core.netty;
 import com.cheng.core.client.ConnectionInstance;
 import com.cheng.core.codec.MessageCodec;
 import com.cheng.core.codec.ServerCodecService;
+import com.cheng.core.enums.TransportType;
 import com.cheng.core.transport.ServerTransport;
 import com.cheng.schedule.config.ScheduleServerConfig;
 import com.cheng.schedule.config.transport.Netty4Config;
@@ -35,28 +36,39 @@ public class Netty4Transport implements ServerTransport {
         return true;
     }
 
+    /**
+     * 初始化客户端
+     * @throws Exception
+     */
     @Override
     public void transportInit() throws Exception {
+        Netty4Config netty4Config = scheduleServerConfig.getTransport().getConfig();
+        MessageCodec messageCodec = serverCodecService.getCodec(scheduleServerConfig.getCodec().getCode());
+        Netty4Client netty4Client = Netty4Client.getInstance()
+                .configNetty4Config(netty4Config)
+                .configCodec(messageCodec);
+        netty4Client.init();
 
     }
 
     @Override
     public void cleanTransport() throws Exception {
-
+        if (netty4Server != null){
+            netty4Server.shutdown();
+        }
     }
 
     @Override
     public ConnectionInstance connectServer(String remoteServer, int port) {
-        return null;
+        return netty4Client.connect(remoteServer, port);
     }
 
     @Override
     public int transportPort() {
-        return 0;
+        return scheduleServerConfig.getTransport().getConfig().getServerPort();
     }
 
     @Override
     public String transportType() {
-        return null;
-    }
+        return TransportType.NETTY4.getCode();    }
 }

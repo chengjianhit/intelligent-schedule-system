@@ -2,6 +2,9 @@ package com.cheng.core.transport;
 
 import com.cheng.core.client.ConnectionInstance;
 
+/**
+ * Transport方式，目前只支持 Netty4，后续可支持其他方式
+ */
 public interface ServerTransport {
 
     /**
