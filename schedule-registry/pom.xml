@@ -11,72 +11,30 @@
   </parent>
 
   <groupId>com.cheng</groupId>
-  <artifactId>transport-core</artifactId>
+  <artifactId>schedule-registry</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>schdule-registry-nacos</module>
+  </modules>
 
-  <name>transport-core</name>
+  <name>schedule-registry</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
   <dependencies>
-
     <dependency>
-      <groupId>com.cheng</groupId>
-      <artifactId>schedule-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>com.cheng</groupId>
-      <artifactId>schedule-config</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <!--jackson Begin-->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-    </dependency>
-    <!--jackson End-->
-
-
-    <!--netty Begin-->
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
-      <version>4.1.34.Final</version>
-    </dependency>
-    <!--netty End-->
-
-    <!-- Spring COntext Begin-->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    <!-- Spring COntext End-->
-
-
   </dependencies>
 
   <build>

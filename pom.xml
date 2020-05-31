@@ -75,6 +75,35 @@
   <dependencyManagement>
     <dependencies>
 
+
+      <dependency>
+        <groupId>com.cheng</groupId>
+        <artifactId>schedule-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.cheng</groupId>
+        <artifactId>schedule-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.cheng</groupId>
+        <artifactId>schedule-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.cheng</groupId>
+        <artifactId>schedule-registry</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+
+
+
+
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter</artifactId>
@@ -158,14 +187,35 @@
         <version>1.2.30</version>
       </dependency>
 
+      <!-- DataSource Config Begin -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.47</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>1.1.9</version>
+      </dependency>
+      <!-- DataSource Config End -->
+
+      <dependency>
+        <groupId>org.apache.directory.studio</groupId>
+        <artifactId>org.apache.commons.codec</artifactId>
+        <version>1.8</version>
+      </dependency>
+
+
     </dependencies>
   </dependencyManagement>
 
 
   <modules>
-    <module>transport-core</module>
+    <module>schedule-core</module>
     <module>schedule-common</module>
     <module>schedule-config</module>
+    <module>schedule-registry</module>
   </modules>
 
 </project>

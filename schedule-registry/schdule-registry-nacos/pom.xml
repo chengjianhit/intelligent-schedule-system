@@ -5,16 +5,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
+
     <groupId>com.cheng</groupId>
-    <artifactId>intelligent-schedule</artifactId>
+    <artifactId>schedule-registry</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <groupId>com.cheng</groupId>
-  <artifactId>schedule-common</artifactId>
+  <artifactId>schdule-registry-nacos</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>schedule-common</name>
+  <name>schdule-registry-nacos</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -25,43 +27,22 @@
   </properties>
 
   <dependencies>
-
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.16.20</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.0-alpha1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>28.2-jre</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
+      <groupId>com.alibaba.nacos</groupId>
+      <artifactId>nacos-client</artifactId>
+      <version>1.0.0-RC3</version>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.studio</groupId>
-      <artifactId>org.apache.commons.codec</artifactId>
+      <groupId>com.cheng</groupId>
+      <artifactId>schedule-core</artifactId>
     </dependency>
 
   </dependencies>

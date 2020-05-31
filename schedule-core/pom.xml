@@ -11,10 +11,10 @@
   </parent>
 
   <groupId>com.cheng</groupId>
-  <artifactId>schedule-common</artifactId>
+  <artifactId>schedule-core</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>schedule-common</name>
+  <name>schedule-core</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -27,42 +27,65 @@
   <dependencies>
 
     <dependency>
+      <groupId>com.cheng</groupId>
+      <artifactId>schedule-common</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.cheng</groupId>
+      <artifactId>schedule-config</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <!--jackson Begin-->
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.16.20</version>
     </dependency>
 
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.0-alpha1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>28.2-jre</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <!--jackson End-->
+
+
+    <!--netty Begin-->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.34.Final</version>
+    </dependency>
+    <!--netty End-->
+
+    <!-- Spring Context Begin-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <!-- Spring Context End-->
+
+    <!-- DataSource Config Begin -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
+      <artifactId>druid</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.studio</groupId>
-      <artifactId>org.apache.commons.codec</artifactId>
-    </dependency>
+    <!-- DataSource Config End -->
 
   </dependencies>
 
