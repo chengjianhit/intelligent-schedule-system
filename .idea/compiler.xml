@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for schedule-config" enabled="true">
+        <sourceOutputDir name="../../intelligent-schedule/schedule-config/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../intelligent-schedule/schedule-config/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="schedule-config" />
+      </profile>
+      <profile name="Annotation profile for schedule-common" enabled="true">
+        <sourceOutputDir name="../../intelligent-schedule/schedule-common/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../intelligent-schedule/schedule-common/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="schedule-common" />
+      </profile>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="schedule-server-starter" />
+        <module name="schdule-registry-nacos" />
+        <module name="schedule-client-starter" />
+      </profile>
+      <profile name="Annotation profile for intelligent-schedule-system" enabled="true">
+        <sourceOutputDir name="../../intelligent-schedule/schedule-core/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../intelligent-schedule/schedule-core/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="schedule-core" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="intelligent-schedule" target="1.8" />
+      <module name="intelligent-schedule-system (1)" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
