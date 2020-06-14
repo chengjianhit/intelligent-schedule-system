@@ -30,6 +30,8 @@
     <dependency>
       <groupId>com.cheng</groupId>
       <artifactId>schedule-core</artifactId>
+      <version>1.0-SNAPSHOT</version>
+
     </dependency>
 
     <dependency>

@@ -4,47 +4,36 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.cheng</groupId>
-    <artifactId>schedule-registry</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
-
   <groupId>com.cheng</groupId>
-  <artifactId>schdule-registry-nacos</artifactId>
+  <artifactId>schedule-server-api</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>schdule-registry-nacos</name>
+  <name>schedule-server-api</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+    <parent>
+      <groupId>com.cheng</groupId>
+      <artifactId>intelligent-schedule-server</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+    </parent>
+
 
   <dependencies>
+
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>com.alibaba.nacos</groupId>
-      <artifactId>nacos-client</artifactId>
-      <version>1.0.0-RC3</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.cheng</groupId>
-      <artifactId>schedule-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
   </dependencies>
 
   <build>

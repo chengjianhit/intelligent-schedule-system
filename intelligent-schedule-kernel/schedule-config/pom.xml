@@ -10,7 +10,7 @@
 
   <parent>
     <groupId>com.cheng</groupId>
-    <artifactId>intelligent-schedule</artifactId>
+    <artifactId>intelligent-schedule-kernel</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 

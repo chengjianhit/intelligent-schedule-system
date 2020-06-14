@@ -5,8 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/../intelligent-schedule/pom.xml" />
         <option value="$PROJECT_DIR$/intelligent-schedule-kernel/pom.xml" />
+        <option value="$PROJECT_DIR$/intelligent-schedule-server/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

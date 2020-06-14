@@ -4,7 +4,6 @@
     <file url="file://$PROJECT_DIR$/../intelligent-schedule" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel/schedule-common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel/schedule-config" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel/schedule-core" charset="UTF-8" />
@@ -13,6 +12,10 @@
     <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel/schedule-starter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel/schedule-starter/schedule-client-starter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/intelligent-schedule-kernel/schedule-starter/schedule-server-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/intelligent-schedule-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/intelligent-schedule-server/schedule-server-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/intelligent-schedule-server/schedule-server-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/intelligent-schedule-server/schedule-server-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../intelligent-schedule/schedule-common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../intelligent-schedule/schedule-config" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../intelligent-schedule/schedule-core" charset="UTF-8" />
