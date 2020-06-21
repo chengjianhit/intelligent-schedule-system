@@ -107,7 +107,11 @@
 
       <!--Intelligent Module Dependency End-->
 
-
+      <dependency>
+        <groupId>com.cheng</groupId>
+        <artifactId>schedule-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
 
       <dependency>

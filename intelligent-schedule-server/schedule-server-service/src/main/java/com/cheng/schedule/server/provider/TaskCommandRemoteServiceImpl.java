@@ -1,4 +1,4 @@
-package com.cheng.schedule.server.service.provider;
+package com.cheng.schedule.server.provider;
 
 import com.cheng.shedule.server.api.TaskCommandRemoteService;
 import com.cheng.shedule.server.common.AiResponse;
