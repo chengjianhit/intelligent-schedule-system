@@ -13,9 +13,9 @@ import javax.annotation.PostConstruct;
 import java.util.concurrent.*;
 
 @Component
-public class TaskScheduleConfigService {
+public class TaskScheduleServer {
 
-    private static Logger logger = BusinessLoggerFactory.getBusinessLogger("SCHEDULE-SERVER",TaskScheduleConfigService.class);
+    private static Logger logger = BusinessLoggerFactory.getBusinessLogger("SCHEDULE-SERVER", TaskScheduleServer.class);
 
     @Autowired
     public CommandGenerateService commandGenerateService;
@@ -51,10 +51,6 @@ public class TaskScheduleConfigService {
 
         //每3秒执行一次 分发Dispatch任务生成方法，将生成的Dispatch任务填充到DispatchQueue队列中
         scheduledService.scheduleWithFixedDelay(() -> commandPublishService.dispatchTask(dispatchQueue), 0, 3, TimeUnit.SECONDS);
-        for (int i=0; i<generateTask; i++){
-
-        }
-
         for (int i = 0; i < generateTask; i++) {
             workerService.submit(() -> {
                 try {

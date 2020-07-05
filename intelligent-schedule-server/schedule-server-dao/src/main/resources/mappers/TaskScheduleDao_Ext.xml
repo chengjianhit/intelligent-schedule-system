@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.schedule.server.dao.mapper.TaskScheduleDao">
+
+    <update id="lockWaitForSchedule" parameterType="java.util.Map">
+        update task_schedule set
+        schedule_host=#{scheduleHost, jdbcType=VARCHAR},
+        update_time=now()
+        where is_deleted=0
+        and task_id in (select id from task_config where is_deleted=0 and task_state='NORMAL')
+        and schedule_host is null
+        and (next_fire_time is null or timestampdiff(SECOND, now(), next_fire_time)  <![CDATA[ < ]]> #{lockRange, jdbcType=BIGINT} )
+        order by next_fire_time
+        limit #{lockRange}
+    </update>
+    
+    <select id="getWaitForSchedule" parameterMap="java.util.Map" >
+        select
+        a.id,
+        a.task_id as taskId,
+        a.schedule_host as scheduleHost,
+        a.pre_fire_time as preFireTime,
+        a.pre_use_time as preUseTime,
+        a.next_fire_time as nextFireTime,
+        a.is_deleted as isDeleted,
+        a.create_time as createTime,
+        a.update_time as updateTime,
+        b.group_id as groupId,
+        b.task_name as taskName,
+        b.task_context as taskContext,
+        b.processor ,
+        b.task_state as scheduleState,
+        b.schedule_type as scheduleType,
+        b.time_zone as timeZone,
+        b.schedule_express as scheduleExpress,
+        b.priority,
+        b.parallel
+        from task_schedule a inner join task_config b on a.task_id = b.id
+        where a.is_deleted=0 and b.is_delete=0
+        and b.task_state='NORMAL'
+        and a.schedule_host = #{scheduleHost,jdbcType=VARCHAR}
+        limit #{size}
+
+    </select>
+
+
+
+
+</mapper>
