@@ -34,6 +34,7 @@ public class ScheduleCommandService {
      * @return
      */
     public Pair<Boolean, String> command(ScheduleTaskCommand scheduleTaskMsg, String server) throws Exception {
+        //此处只需要发送调度命令的meta信息，需要处理的数据，在客户端本地fetch
         scheduleTaskMsg.setTaskDataList(Lists.newArrayList());
         final ConnectionInstance connectionInstance = connectionManagerService.selectInstance(scheduleTaskMsg.getGroupCode(), server);
         if (connectionInstance == null) {

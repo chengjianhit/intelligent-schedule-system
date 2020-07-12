@@ -9,6 +9,9 @@ import java.util.List;
 @Data
 public class ScheduleTaskCommand<T> {
 
+    /************************任务配置信息，来源于任务配置平台********************/
+
+
     /**
      * 客户端调度处理器名称
      */
@@ -23,6 +26,9 @@ public class ScheduleTaskCommand<T> {
      * 分组码
      */
     String groupCode;
+
+    /*************************任务调度平台，被调度时产生************************/
+
 
     /**
      * 任务指令，第一次调度，由中心生成

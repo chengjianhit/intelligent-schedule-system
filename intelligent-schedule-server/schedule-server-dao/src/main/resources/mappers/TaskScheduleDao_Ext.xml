@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cheng.schedule.server.dao.mapper.TaskScheduleDao">
+    <update id="updateScheduleTime" parameterType="com.cheng.schedule.server.dao.domain.TaskSchedule">
+        update task_schedule set
+        update_time=now(),
+        pre_fire_time=next_fire_time,
+        next_fire_time = #{nextFireTime,jdbcType=TIMESTAMP},
+        schedule_host=null
+        where id=#{id,jdbcType=BIGINT}
+    </update>
+
 
     <update id="lockWaitForSchedule" parameterType="java.util.Map">
         update task_schedule set
@@ -42,6 +51,11 @@
         limit #{size}
 
     </select>
+
+    <update id="lockRunningState" parameterType="java.util.Map">
+        update task_schedule t set t.is_deleted=0, t.running_cmd_id=#{cmdId, jdbcType=BIGINT}, t.update_time=now()
+        where id=#{id,jdbcType=BIGINT} and (running_cmd_id=0 or running_cmd_id=#{cmdId,jdbcType=BIGINT)
+    </update>
 
 
 

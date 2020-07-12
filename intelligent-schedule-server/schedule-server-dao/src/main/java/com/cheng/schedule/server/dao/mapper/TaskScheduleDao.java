@@ -1,13 +1,14 @@
 package com.cheng.schedule.server.dao.mapper;
 
 import com.cheng.schedule.server.dao.domain.TaskSchedule;
+import com.cheng.schedule.server.dao.domain.TaskScheduleExample;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface TaskScheduleDao {
+public interface TaskScheduleDao extends MyBatisBaseDao<TaskSchedule, Long, TaskScheduleExample>{
 
     /**
      * lock task for schedule

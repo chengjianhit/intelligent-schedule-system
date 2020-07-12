@@ -1,6 +1,7 @@
 package com.cheng.schedule.server.repository;
 
 import com.cheng.logger.BusinessLoggerFactory;
+import com.cheng.schedule.server.dao.domain.TaskSchedule;
 import com.cheng.schedule.server.dao.mapper.TaskScheduleDao;
 import com.cheng.schedule.server.entity.TaskScheduleDO;
 import com.cheng.util.InetUtils;
@@ -17,6 +18,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -73,5 +75,37 @@ public class TaskScheduleService {
         }
         logger.info("batch schedule get {}", taskScheduleDOList.size());
         return taskScheduleDOList;
+    }
+
+    /**
+     * update the nextFireTime
+     * @param id
+     * @param nextFireTime
+     * @return
+     */
+    public boolean updateScheduleTime(Long id, Date nextFireTime) {
+        TaskSchedule taskSchedule = new TaskSchedule();
+        taskSchedule.setId(id);
+        taskSchedule.setNextFireTime(nextFireTime);
+        int updateCnt = taskScheduleDao.updateScheduleTime(taskSchedule);
+        return updateCnt > 0;
+    }
+
+    /**
+     * 非并发任务，锁定任务状态
+     * @param scheduleId
+     * @param cmdId
+     * @return
+     */
+    public boolean lockRunningState(Long scheduleId, Long cmdId) {
+        TaskSchedule taskSchedule = taskScheduleDao.selectByPrimaryKey(scheduleId);
+        if (taskSchedule == null){
+            throw new RuntimeException("not found the task schedule");
+        }
+        Map<String, Long> param = Maps.newHashMap();
+        param.put("id", scheduleId);
+        param.put("cmdId", cmdId);
+        int i = taskScheduleDao.lockRunningState(param);
+        return i>0;
     }
 }

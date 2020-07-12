@@ -39,7 +39,7 @@ public class TaskScheduleServer {
 
     //TODO ScheduleServer服务端启动入口
     @PostConstruct
-    public void startSchedule() throws Exception{
+    public void startScheduleServer() throws Exception{
         scheduledService = new ScheduledThreadPoolExecutor(2,
                 new BasicThreadFactory.Builder().namingPattern("scheduler-server-%d").priority(10).daemon(true).build());
 
