@@ -92,7 +92,7 @@ public class TaskScheduleService {
     }
 
     /**
-     * 非并发任务，锁定任务状态
+     * 非并发任务，锁定任务状态。将runningCmdId赋值
      * @param scheduleId
      * @param cmdId
      * @return
@@ -107,5 +107,19 @@ public class TaskScheduleService {
         param.put("cmdId", cmdId);
         int i = taskScheduleDao.lockRunningState(param);
         return i>0;
+    }
+
+    /**
+     * 解除task_schedule的任务状态，将runningCmdId清除
+     * @param taskId
+     * @return
+     */
+    public boolean cleanRunningLock(Long taskId) {
+        if (taskId == null || taskId < 0) {
+            return false;
+        }
+
+        int i = taskScheduleDao.cleanRunningLock(taskId);
+        return i > 0;
     }
 }

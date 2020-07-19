@@ -97,4 +97,35 @@ public class TaskCommandService {
         int i = taskCommandDao.updateByPrimaryKeySelective(taskCommand);
         return i>0;
     }
+
+    /**
+     * update the task_command record PUBLISH_FAIL
+     * @param taskCommandDO
+     * @return
+     */
+    public boolean dispatchFailture(TaskCommandDO taskCommandDO) {
+        TaskCommand taskCommand = new TaskCommand();
+        taskCommand.setId(taskCommandDO.getId());
+        taskCommand.setState(TaskCommandState.PUBLISH_FAIL.name());
+        int i = taskCommandDao.updateByPrimaryKeySelective(taskCommand);
+        return i > 0;
+    }
+
+    public TaskCommandDO getCommandById(Long commandId) {
+        TaskCommand taskCommand = taskCommandDao.selectByPrimaryKey(commandId);
+        if (taskCommand != null) {
+            TaskCommandDO taskCommandDO = new TaskCommandDO();
+            BeanUtils.copyProperties(taskCommand, taskCommandDO);
+            return taskCommandDO;
+        }
+        return null;
+    }
+
+    public boolean abortCommand(Long commandId) {
+        TaskCommand taskCommand = new TaskCommand();
+        taskCommand.setId(commandId);
+        taskCommand.setState(TaskCommandState.ABORT.name());
+        int i = taskCommandDao.updateByPrimaryKeySelective(taskCommand);
+        return i > 0;
+    }
 }

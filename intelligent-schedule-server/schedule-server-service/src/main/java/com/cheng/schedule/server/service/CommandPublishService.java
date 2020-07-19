@@ -89,8 +89,21 @@ public class CommandPublishService {
     public void process(BlockingQueue<TaskCommandDO> dispatchQueue) throws Exception{
         TaskCommandDO taskCommandDO = null;
         while (true){
-            taskCommandDO = dispatchQueue.take();
-            doDispatch(taskCommandDO);
+            try {
+                taskCommandDO = dispatchQueue.take();
+                doDispatch(taskCommandDO);
+                logger.debug("dispatch one command to business {} ", taskCommandDO.getId());
+            } catch (Exception e) {
+                //命令调度失败，特殊逻辑处理
+                logger.error("process dispatch data error " + JSON.toJSONString(taskCommandDO), e);
+                //将task_command任务状态更新为PUBLISH_FAIL
+                taskCommandService.dispatchFailture(taskCommandDO);
+                taskScheduleService.cleanRunningLock(taskCommandDO.getTaskId());
+            } finally {
+                //从当前缓存中移除该任务
+                scheduleCacheService.removeDispatchQueue(taskCommandDO.getId());
+
+            }
         }
 
     }

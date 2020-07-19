@@ -57,6 +57,10 @@
         where id=#{id,jdbcType=BIGINT} and (running_cmd_id=0 or running_cmd_id=#{cmdId,jdbcType=BIGINT)
     </update>
 
+    <update id="cleanRunningLock" parameterType="java.lang.Long">
+        update task_schedule t set t.running_cmd_id=0, t.update_time=now()
+        where task_id = #{taskId, jdbcType=BIGINT} and is_deleted=0
+    </update>
 
 
 
