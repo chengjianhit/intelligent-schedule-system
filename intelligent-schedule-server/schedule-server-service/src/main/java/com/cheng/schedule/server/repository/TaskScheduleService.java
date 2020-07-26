@@ -122,4 +122,17 @@ public class TaskScheduleService {
         int i = taskScheduleDao.cleanRunningLock(taskId);
         return i > 0;
     }
+
+    /**
+     * add schedule task
+     * @param taskScheduleDO
+     * @return
+     */
+    public boolean addTaskSchedule(TaskScheduleDO taskScheduleDO) {
+        TaskSchedule taskSchedule = new TaskSchedule();
+        BeanUtils.copyProperties(taskScheduleDO, taskSchedule);
+        int insert = taskScheduleDao.insertSelective(taskSchedule);
+        taskScheduleDO.setId(taskSchedule.getId());
+        return insert > 0;
+    }
 }

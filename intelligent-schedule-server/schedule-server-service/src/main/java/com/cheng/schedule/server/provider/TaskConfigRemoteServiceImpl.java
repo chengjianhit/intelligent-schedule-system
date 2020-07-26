@@ -1,6 +1,7 @@
 package com.cheng.schedule.server.provider;
 
 import com.cheng.logger.BusinessLoggerFactory;
+import com.cheng.schedule.server.service.TaskConfigBusinessService;
 import com.cheng.schedule.server.service.UserPermissionService;
 import com.cheng.shedule.server.api.TaskConfigRemoteService;
 import com.cheng.shedule.server.common.AiPageResponse;
@@ -18,8 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TaskConfigRemoteServiceImpl implements TaskConfigRemoteService {
     private static Logger logger = BusinessLoggerFactory.getBusinessLogger("SCHEDULE-SERVER",TaskConfigRemoteServiceImpl.class);
 
-//    @Autowired
-//    TaskConfigBusinessService taskConfigBusinessService;
+    @Autowired
+    TaskConfigBusinessService taskConfigBusinessService;
 
     @Autowired
     UserPermissionService userPermissionService;
@@ -27,12 +28,23 @@ public class TaskConfigRemoteServiceImpl implements TaskConfigRemoteService {
 
     @Override
     public AiResponse<Boolean> addTask(String userId, TaskConfigDTO taskConfigDTO) {
-        return null;
+        try{
+            return taskConfigBusinessService.addTask(userId,taskConfigDTO);
+        }catch (Throwable e)
+        {
+            logger.error("add task error ",e);
+            return AiResponse.fail("add task error ");
+        }
     }
 
     @Override
     public AiPageResponse<TaskConfigDTO> queryTask(String userId, TaskConfigQueryParam taskConfigQueryParam) {
-        return null;
+        try{
+            return taskConfigBusinessService.queryTask(userId, taskConfigQueryParam);
+        }catch (Throwable e){
+            logger.error("query task error ",e);
+            return AiPageResponse.fail("query task error ");
+        }
     }
 
     @Override

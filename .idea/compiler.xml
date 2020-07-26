@@ -7,14 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="schedule-server-dao" />
-        <module name="schedule-server-api" />
+        <module name="schedule-server-starter" />
         <module name="schdule-registry-nacos" />
         <module name="schedule-config" />
-        <module name="schedule-client-starter" />
-        <module name="schedule-core" />
         <module name="schedule-common" />
+        <module name="schedule-core" />
+        <module name="schedule-server-api" />
         <module name="schedule-server-service" />
-        <module name="schedule-server-starter" />
+        <module name="schedule-client-starter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
