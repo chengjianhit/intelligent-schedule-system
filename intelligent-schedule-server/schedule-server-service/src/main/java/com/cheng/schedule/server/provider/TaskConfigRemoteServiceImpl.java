@@ -22,9 +22,6 @@ public class TaskConfigRemoteServiceImpl implements TaskConfigRemoteService {
     @Autowired
     TaskConfigBusinessService taskConfigBusinessService;
 
-    @Autowired
-    UserPermissionService userPermissionService;
-
 
     @Override
     public AiResponse<Boolean> addTask(String userId, TaskConfigDTO taskConfigDTO) {
@@ -49,11 +46,22 @@ public class TaskConfigRemoteServiceImpl implements TaskConfigRemoteService {
 
     @Override
     public AiResponse<Boolean> modifyTask(String userId, TaskConfigDTO taskConfigDTO) {
-        return null;
+        try{
+            return taskConfigBusinessService.modifyTask(userId,taskConfigDTO);
+        }catch (Throwable e)
+        {
+            logger.error("modify task error ",e);
+            return AiResponse.fail("modify task error ");
+        }
     }
 
     @Override
     public AiResponse<Boolean> delTask(String userId, Long taskId) {
-        return null;
+        try {
+            return taskConfigBusinessService.delTask(userId, taskId);
+        } catch (Throwable e) {
+            logger.error("del task error ", e);
+            return AiResponse.fail("del task error ");
+        }
     }
 }

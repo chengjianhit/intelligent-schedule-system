@@ -2,6 +2,7 @@ package com.cheng.schedule.server.repository;
 
 import com.cheng.logger.BusinessLoggerFactory;
 import com.cheng.schedule.server.dao.domain.TaskSchedule;
+import com.cheng.schedule.server.dao.domain.TaskScheduleExample;
 import com.cheng.schedule.server.dao.mapper.TaskScheduleDao;
 import com.cheng.schedule.server.entity.TaskScheduleDO;
 import com.cheng.util.InetUtils;
@@ -134,5 +135,38 @@ public class TaskScheduleService {
         int insert = taskScheduleDao.insertSelective(taskSchedule);
         taskScheduleDO.setId(taskSchedule.getId());
         return insert > 0;
+    }
+
+    /**
+     * 根据task_schedule中的taskId，查询 runningCmdId
+     * @param taskId
+     * @return
+     */
+    public Long getRunningCmdId(Long taskId) {
+        if (taskId == null || taskId < 0) {
+            return null;
+        }
+        TaskScheduleExample taskScheduleExample = new TaskScheduleExample();
+        TaskScheduleExample.Criteria criteria = taskScheduleExample.createCriteria();
+        criteria.andTaskIdEqualTo(taskId);
+        criteria.andIsDeletedEqualTo(false);
+        List<TaskSchedule> taskScheduleList = taskScheduleDao.selectByExample(taskScheduleExample);
+        if(CollectionUtils.isNotEmpty(taskScheduleList)) {
+            return taskScheduleList.get(0).getRunningCmdId();
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param taskId
+     * @return
+     */
+    public boolean delSchedule(Long taskId) {
+        TaskScheduleExample taskScheduleExample = new TaskScheduleExample();
+        TaskScheduleExample.Criteria criteria = taskScheduleExample.createCriteria();
+        criteria.andTaskIdEqualTo(taskId);
+        int i = taskScheduleDao.softDeleteByExample(taskScheduleExample);
+        return i > 0;
     }
 }

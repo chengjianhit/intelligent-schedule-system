@@ -1,13 +1,11 @@
 package com.cheng.schedule.server.service;
 
 import com.cheng.logger.BusinessLoggerFactory;
-import com.cheng.schedule.server.entity.OperationLogDO;
-import com.cheng.schedule.server.entity.PageInfo;
-import com.cheng.schedule.server.entity.TaskConfigDO;
-import com.cheng.schedule.server.entity.TaskScheduleDO;
+import com.cheng.schedule.server.entity.*;
 import com.cheng.schedule.server.enums.OperationType;
 import com.cheng.schedule.server.repository.OperationLogService;
 import com.cheng.schedule.server.repository.TaskConfigService;
+import com.cheng.schedule.server.repository.TaskGroupService;
 import com.cheng.schedule.server.repository.TaskScheduleService;
 import com.cheng.schedule.server.trigger.cron.CronExpression;
 import com.cheng.shedule.server.common.AiPageResponse;
@@ -26,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.cheng.schedule.server.enums.OperationType.*;
+
 @Component
 public class TaskConfigBusinessService {
 
@@ -42,6 +42,9 @@ public class TaskConfigBusinessService {
 
     @Autowired
     OperationLogService operationLogService;
+
+    @Autowired
+    TaskGroupService taskGroupService;
 
 
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
@@ -137,5 +140,59 @@ public class TaskConfigBusinessService {
             success.withBusinessData(collect);
         }
         return success;
+    }
+
+    public AiResponse<Boolean> modifyTask(String userId, TaskConfigDTO taskConfigDTO) {
+
+        boolean permission = userPermissionService.isPermission(userId, taskConfigDTO.getGroupId());
+        if (!permission) {
+            String errorMsg = String.format("the user [{}] has no permission for update task", userId);
+            logger.error(errorMsg);
+            return AiResponse.fail(errorMsg);
+        }
+        boolean valdiateResult = validateExpress(taskConfigDTO);
+        if (!valdiateResult) {
+            logger.error("cron express validate fail " + taskConfigDTO.getScheduleExpress());
+            return AiResponse.fail("cron express " + taskConfigDTO.getScheduleExpress() + " not validate");
+        }
+        TaskConfigDO taskConfigDO = new TaskConfigDO();
+        BeanUtils.copyProperties(taskConfigDTO, taskConfigDO);
+        boolean b = taskConfigService.modifyTaskConfig(taskConfigDO);
+        operationLogService.addOpLog(
+                OperationLogDO.instance(MODIFY_TASK, taskConfigDO.getId(), userId, "modify task result : " + b));
+        return AiResponse.success(b);
+    }
+
+    /**
+     * 删除配置的任务
+     * @param userId
+     * @param taskId
+     * @return
+     */
+    @Transactional
+    public AiResponse<Boolean> delTask(String userId, Long taskId) {
+        TaskConfigDO taskConfigDO = taskConfigService.queryTaskById(taskId);
+        boolean permission = userPermissionService.isPermission(userId, taskConfigDO.getGroupId());
+        if (!permission) {
+            String errorMsg = String.format("the user [{}] has no permission for delete task", userId);
+            logger.error(errorMsg);
+            return AiResponse.fail(errorMsg);
+        }
+        boolean b = taskConfigService.delTask(taskId);
+        operationLogService
+                .addOpLog(OperationLogDO.instance(DEL_TASK, taskConfigDO.getId(), userId, "del task result : " + b));
+        if (b) {
+            //update the schedule task
+            boolean b1 = taskScheduleService.delSchedule(taskId);
+            operationLogService.addOpLog(OperationLogDO
+                    .instance(DEL_SCHEDULE, taskConfigDO.getId(), userId, "del schedule result : " + b1));
+            if (!b1) {
+                return AiResponse.fail("del schedule fail");
+            }
+            return AiResponse.success(true);
+        }
+        return AiResponse.fail("del task fail");
+
+
     }
 }
