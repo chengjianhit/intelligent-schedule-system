@@ -1,7 +1,7 @@
 package com.cheng.schedule.server.provider;
 
 import com.cheng.logger.BusinessLoggerFactory;
-import com.cheng.schedule.server.repository.TaskGroupBusinessService;
+import com.cheng.schedule.server.service.TaskGroupBusinessService;
 import com.cheng.shedule.server.api.TaskGroupRemoteService;
 import com.cheng.shedule.server.common.AiPageResponse;
 import com.cheng.shedule.server.common.AiResponse;

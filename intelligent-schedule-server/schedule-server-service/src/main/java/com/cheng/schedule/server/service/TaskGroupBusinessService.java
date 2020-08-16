@@ -1,9 +1,12 @@
-package com.cheng.schedule.server.repository;
+package com.cheng.schedule.server.service;
 
 import com.alibaba.fastjson.JSON;
 import com.cheng.logger.BusinessLoggerFactory;
 import com.cheng.schedule.server.entity.*;
-import com.cheng.schedule.server.service.UserPermissionService;
+import com.cheng.schedule.server.repository.GroupPermissionService;
+import com.cheng.schedule.server.repository.OperationLogService;
+import com.cheng.schedule.server.repository.TaskConfigService;
+import com.cheng.schedule.server.repository.TaskGroupService;
 import com.cheng.shedule.server.common.AiPageResponse;
 import com.cheng.shedule.server.common.AiResponse;
 import com.cheng.shedule.server.dto.PermissionDTO;
@@ -26,7 +29,7 @@ import static com.cheng.schedule.server.enums.OperationType.*;
 @Repository
 public class TaskGroupBusinessService {
 
-    private static Logger logger = BusinessLoggerFactory.getBusinessLogger("SCHEDULE-SERVER", TaskGroupServiceFacade.class);
+    private static Logger logger = BusinessLoggerFactory.getBusinessLogger("SCHEDULE-SERVER", TaskGroupBusinessService.class);
     @Autowired
     private TaskGroupService taskGroupService;
     @Autowired
