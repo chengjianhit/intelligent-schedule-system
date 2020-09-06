@@ -2,6 +2,7 @@ package com.cheng.schedule.server.repository;
 
 import com.cheng.logger.BusinessLoggerFactory;
 import com.cheng.schedule.server.dao.domain.TaskCommand;
+import com.cheng.schedule.server.dao.domain.TaskCommandDispatchLog;
 import com.cheng.schedule.server.dao.mapper.TaskCommandDao;
 import com.cheng.schedule.server.entity.TaskCommandDO;
 import com.cheng.shedule.server.enums.TaskCommandState;
@@ -127,5 +128,14 @@ public class TaskCommandService {
         taskCommand.setState(TaskCommandState.ABORT.name());
         int i = taskCommandDao.updateByPrimaryKeySelective(taskCommand);
         return i > 0;
+    }
+
+    /**
+     *
+     * @param param
+     * @return
+     */
+    public List<TaskCommandDispatchLog> queryCommandDispatchState(Map<String, Object> param) {
+        return taskCommandDao.queryCommandDispatchState(param);
     }
 }

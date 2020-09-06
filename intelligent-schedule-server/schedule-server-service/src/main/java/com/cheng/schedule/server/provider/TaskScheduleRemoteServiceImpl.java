@@ -20,13 +20,22 @@ public class TaskScheduleRemoteServiceImpl implements TaskScheduleRemoteService 
 
     @Override
     public AiResponse<Boolean> pauseSchedule(String userId, Long taskId) {
-        return null;
+        try {
+            return taskScheduleBusinessService.pauseSchedule(userId, taskId);
+        } catch (Throwable e) {
+            logger.error("pause schedule error " + taskId, e);
+            return AiResponse.fail("pause schedule error " + taskId);
+        }
     }
 
     @Override
     public AiResponse<Boolean> resumeSchedule(String userId, Long taskId) {
-        return null;
-    }
+        try {
+            return taskScheduleBusinessService.resumeSchedule(userId, taskId);
+        } catch (Throwable e) {
+            logger.error("resume schedule error " + taskId, e);
+            return AiResponse.fail("resume schedule error ");
+        }    }
 
     @Override
     public AiPageResponse<TaskScheduleDTO> queryTaskSchedule(String userId, TaskScheduleQueryParam taskScheduleQueryParam) {
@@ -35,11 +44,20 @@ public class TaskScheduleRemoteServiceImpl implements TaskScheduleRemoteService 
 
     @Override
     public AiResponse<TaskScheduleDTO> queryTaskProcess(String userId, Long commandId) {
-        return null;
+        try {
+            return taskScheduleBusinessService.queryTaskProcess(userId, commandId);
+        } catch (Throwable e) {
+            logger.error("queryTaskProcess error " + commandId, e);
+            return AiResponse.fail("queryTaskProcess error ");
+        }
     }
 
     @Override
     public AiResponse<Boolean> cleanRunningLock(String userId, Long taskId) {
-        return null;
-    }
+        try {
+            return taskScheduleBusinessService.cleanRunningLock(userId, taskId);
+        } catch (Throwable e) {
+            logger.error("clean lock error " + taskId, e);
+            return AiResponse.fail("clean Lock error ");
+        }    }
 }

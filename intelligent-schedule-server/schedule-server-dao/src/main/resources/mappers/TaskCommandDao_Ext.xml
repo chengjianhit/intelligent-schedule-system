@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webank.shopos.schedule.center.dao.mapper.TaskCommandDao">
+
+    <update id="lockTaskCommand" parameterType="java.util.Map">
+        update task_command t
+            set t.publish_host=#{publishHost,jdbcType=VARCHAR},
+                t.update_time=now(),
+                t.state='PUBLISHING'
+        where is_deleted=0 and state='INIT' and (publish_host is null or publish_host=#{publishHost,jdbcType=VARCHAR}) and timestampdiff(SECOND,now(),publish_time) <![CDATA[ < ]]> #{lockRange,jdbcType=BIGINT}
+            order by publish_time
+        limit #{size}
+    </update>
+
+    <select id="getWaitForCommand"  parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from task_command
+         where is_deleted=0
+         and publish_host= #{publishHost,jdbcType=VARCHAR}
+         and state='PUBLISHING'
+         order by publish_time
+        limit  #{size}
+    </select>
+
+    <update id="resetLockInfo" parameterType="java.util.Map">
+        update task_command t
+        set t.update_time=now(),
+        t.state='INIT'
+        where id=#{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="softDeleteByExample" parameterType="com.webank.shopos.schedule.center.dao.domain.GroupPermissionExample">
+        update task_command set is_deleted=1
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <select id="queryTaskScheduleLogCount" resultType="java.lang.Long">
+        select count(1)
+        from  task_command a where 1 = 1
+
+        <if test="userId != null">
+            and  a.group_id in (select group_id from group_permission where is_deleted=0 and user_id =#{userId,jdbcType=VARCHAR})
+        </if>
+        <if test="taskId != null">
+            and  a.task_id =#{taskId,jdbcType=BIGINT}
+        </if>
+        <if test="scheduleStartTime != null">
+            and  a.publish_time > #{scheduleStartTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="scheduleEndTime != null">
+            and  a.publish_time <![CDATA[ < ]]>  #{scheduleEndTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="groupId != null">
+            and  a.group_id=#{groupId,jdbcType=BIGINT}
+        </if>
+    </select>
+    <select id="queryCommandDispatchState" resultType="com.webank.shopos.schedule.center.dao.domain.TaskCommandDispatchLog">
+        select * from (
+         select a.*,b.task_name as taskName from   (
+                select a.id as commandId,
+                a.group_id as groupId,
+                a.task_id as taskId,
+                a.command as commandType,
+                a.schedule_id as scheduleId,
+                a.state as scheduleState,
+                a.publish_host as scheduleHost,
+                a.target_host as targetHost,
+                b.start_time as startTime,
+                b.end_time as endTime,
+                b.trace_id as traceId,
+                a.publish_time as publishTime,
+                a.priority ,
+                b.total,
+                b.success,
+                b.fail
+                from  task_command a left join task_log b on a.id=b.command_id
+                where a.is_deleted=0
+                    <if test="userId != null">
+                         and  a.group_id in (select group_id from group_permission where user_id =#{userId,jdbcType=VARCHAR})
+                    </if>
+                    <if test="taskId != null">
+                         and  a.task_id =#{taskId,jdbcType=BIGINT}
+                    </if>
+                    <if test="commandId != null">
+                        and  a.id =#{commandId,jdbcType=BIGINT}
+                    </if>
+                    <if test="scheduleStartTime != null">
+                         and  a.publish_time > #{scheduleStartTime,jdbcType=TIMESTAMP}
+                    </if>
+                    <if test="scheduleEndTime != null">
+                         and  a.publish_time <![CDATA[ < ]]>  #{scheduleEndTime,jdbcType=TIMESTAMP}
+                    </if>
+                    <if test="groupId != null">
+                         and  a.group_id=#{groupId,jdbcType=BIGINT}
+                    </if>
+                    ) a left join task_config b on a.taskId=b.id
+            order by a.publishTime desc,a.startTime desc
+        ) a limit #{startIdx,jdbcType=BIGINT},#{pageSize,jdbcType=BIGINT}
+    </select>
+
+</mapper>
